@@ -1,0 +1,15 @@
+type Person {
+  code: String!
+  firstName: String!
+  lastName: String!
+  children: [Person]!
+}
+
+type Query {
+  people: [Person]!
+  person(code: String!): Person
+}
+
+schema {
+  query: Query
+}
