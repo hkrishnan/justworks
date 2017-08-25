@@ -11,6 +11,8 @@
 (def raw (raw-resourcer "justworks"))
 
 (def templates ["README.md"
+                "CHANGELOG.md"
+                ".gitignore"
                 "project.clj"
                 "dev/user.clj"
                 "resources/schemas/hello.umlaut"
