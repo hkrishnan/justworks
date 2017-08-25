@@ -1,28 +1,43 @@
-(defproject vx-api "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.9.0-alpha14"]
-                 [org.clojure/core.async "0.2.395"]
-                 [clj-http "0.6.0"]
-                 [compojure "1.5.2"]
-                 [ring/ring-core "1.5.1"]
-                 [ring/ring-jetty-adapter "1.5.1"]
-                 [ring/ring-devel "1.5.1"]
-                 [ring/ring-defaults "0.2.1"]
-                 [ring/ring-json "0.4.0"]
-                 [ring-cors "0.1.8"]
-                 [clj-time "0.13.0"]
-                 [org.clojure/core.match "0.3.0-alpha4"]
-                 [graphql-clj "0.1.20" :exclusions [org.clojure/clojure]]
-                 [com.netflix.hystrix/hystrix-clj "1.5.9"]]
-  :main ^:skip-aot {{name}}.core
+(defproject {{name}} "0.1.0-SNAPSHOT"
+  :description "FIXME: GraphQL API for {{name}}"
+  :url "FIXME: https://github.com/fixme"
+  
+  :dependencies [[clojure-future-spec "1.9.0-alpha17"]
+                 [com.stuartsierra/component "0.3.2"]
+                 [com.walmartlabs/lacinia "0.20.0"]
+                 [com.walmartlabs/lacinia-pedestal "0.3.0"]
+                 [environ "1.1.0"]
+                 [io.pedestal/pedestal.jetty "0.5.2"]
+                 [io.pedestal/pedestal.log "0.5.2"]
+                 [io.pedestal/pedestal.route "0.5.2"]
+                 [io.pedestal/pedestal.service "0.5.2"]
+                 [org.clojure/clojure "1.8.0"]
+                 [org.clojure/tools.namespace "0.2.11"]
+                 [org.danielsz/system "0.4.0"]
+                 [org.slf4j/slf4j-simple "1.7.21"]
+                 [umlaut "0.1.14-SNAPSHOT"]]
+
+  :plugins [[lein-environ "1.1.0"]
+            [lein-umlaut "0.1.2-SNAPSHOT"]]
+
+  :min-lein-version "2.6.1"
+
+  ;; Starts server with a simple `lein run`
+  :main ^:skip-aot {{name}}.application
+
+  :uberjar-name "{{name}}.jar"
+  
   :target-path "target/%s"
-  :resource-paths ["build" "resources"]
-  :profiles {:uberjar {:aot :all}}
-  :plugins [[lein-ring "0.11.0"]]
-  :ring {:handler {{name}}.handler/app
-         :auto-reload? true
-         :reload-paths ["src" "build" "resources"]
-         :port 3002})
+
+  ;; nREPL by default starts in the :main namespace, we want to start in `user`
+  ;; because that's where our development helper functions like (go) and (reset)
+  ;; live.
+  :repl-options {:init-ns user}
+
+  :bikeshed {:max-line-length 200}
+
+  :profiles {:dev {:dependencies [[org.clojure/tools.nrepl "0.2.13"]
+                                  [reloaded.repl "0.2.3"]]
+                   :source-paths ["dev"]}
+             :uberjar {:omit-source true
+                       :aot :all}})
