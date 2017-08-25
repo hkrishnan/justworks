@@ -15,7 +15,7 @@ You can start the server via `lein` with:
 
     $ lein run
 
-Or directly with from the `jar`:
+Or directly with Java from the `jar`:
 
     $ lein uberjar
     $ cd target/
